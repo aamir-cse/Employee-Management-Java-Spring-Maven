@@ -6,18 +6,19 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
+
 import com.mnc.bo.EmployeeBO;
 
+@Repository("empOraDAO")
 public class EmployeeDAOImpl implements IEmployeeDAO {
 	private static final String REAL_TIME_DI_EMPLOYEE_INSERT = 
 	"insert into REAL_TIME_EMPLOYEEMGMT VALUES(EMP_SEQ.NEXTVAL ,?,?,?,?,?)";
-
+    @Autowired
+    @Qualifier("dmds")
 	private DataSource dmds;
-
-	public EmployeeDAOImpl(DataSource dmds) {
-		System.out.println("Employee DAO 1-Param constructor created");
-		this.dmds = dmds;
-	}
 
 	@Override
 	public int insert(EmployeeBO bo) throws Exception {

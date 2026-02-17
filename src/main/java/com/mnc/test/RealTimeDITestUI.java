@@ -2,11 +2,10 @@ package com.mnc.test;
 
 import java.util.Scanner;
 
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.mnc.vo.EmployeeVO;
 import com.mnc.controller.MainController;
+import com.mnc.vo.EmployeeVO;
 
 public class RealTimeDITestUI {
 
@@ -27,18 +26,21 @@ public class RealTimeDITestUI {
       vo.setEmpBaseSalary(baseSalary);
       
     //Create IOC container (ApplicationContext container)
-    	DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
-    	//Load Bean class file to IOC
-    	XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(factory);
-    	reader.loadBeanDefinitions("com/mnc/cfgs/applicationContext.xml");
+
+    	
+//    	// create IOC container
+        ClassPathXmlApplicationContext factory =
+                new ClassPathXmlApplicationContext("com/mnc/cfgs/applicationContext.xml");
     	//Get Controller class object from IOC container
       	MainController controller = factory.getBean("controller", MainController.class);
-      
-      	//Invoke method
+
+      	//System.out.println(Arrays.toString(factory.getBeanDefinitionNames()));
+      	//Invoke method.
       	try {
+      		
       		String result = controller.processEmployee(vo);
       		System.out.println(result);
-      	}
+      	} 
       	catch(Exception e)
 	  	{
 	  		e.printStackTrace();

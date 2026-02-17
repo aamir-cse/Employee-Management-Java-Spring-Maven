@@ -1,16 +1,18 @@
 package com.mnc.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.mnc.bo.EmployeeBO;
-import com.mnc.dao.EmployeeDAOImpl;
+import com.mnc.dao.IEmployeeDAO;
 import com.mnc.dto.EmployeeDTO;
 
+@Service("empService")
 public class EmployeeMgmtServiceImpl implements IEmployeeMgmtService {
 
-	private EmployeeDAOImpl dao;
+	@Autowired
+	private IEmployeeDAO dao;
 	
-	public EmployeeMgmtServiceImpl(EmployeeDAOImpl dao) {
-		this.dao = dao;
-	}
 
 	@Override
 	public String calculateGrossAndNetSalary(EmployeeDTO dto) throws Exception {
